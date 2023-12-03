@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Login" />
+    <link rel="icon" href="./assets/cart-icon.png" type="image/icon type" />
+    <title>Login</title>
+    <link rel="stylesheet" href="login.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Login</h1>
+      <form id="form-login">
+        <div class="form-control">
+          <label for="email">Email</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="email@example.com"
+            required
+          />
+        </div>
+        <div class="form-control">
+          <label for="password" class="lbl-pass"
+            ><span>Password</span><a href="#">Forgot password?</a></label
+          >
+          <input
+            type="password"
+            name="password"
+            id="password"
+            placeholder="********"
+            required
+          />
+        </div>
+        <div>
+          Don't have an account?
+          <a href="#" id="new-account">Create new account</a>
+        </div>
+        <input type="submit" value="Login" />
+      </form>
+
+      <form id="form-register">
+        <div class="form-control">
+          <label for="username"
+            >Username
+            <span
+              class="title"
+              title="1 Name (No Space), Letters & Numbers (Min=3 Max=16)"
+              >?</span
+            >
+          </label>
+          <input
+            type="text"
+            name="username"
+            id="register-username"
+            placeholder="coolname64"
+            required
+          />
+        </div>
+        <div class="form-control">
+          <label for="email"
+            >Email
+            <span class="title" title="Email Format">?</span>
+          </label>
+          <input
+            type="email"
+            name="email"
+            id="register-email"
+            placeholder="email@example.com"
+            required
+          />
+        </div>
+        <div class="form-control">
+          <label for="fullname"
+            >Full Name
+            <span
+              class="title"
+              title="2 Names (Space Between), Only Letters 
+            With Upper Case At Start (Min=3 Max=8)"
+              >?</span
+            >
+          </label>
+          <input
+            type="text"
+            name="fullname"
+            id="register-fullname"
+            placeholder="Cool Name"
+            required
+          />
+        </div>
+        <div class="form-control">
+          <label for="password"
+            >Password
+            <span
+              class="title"
+              title="1 String (No Space), Only Letters 
+              & Numbers (Min=6, Atleast 1 Upper Case Letter)"
+              >?</span
+            >
+          </label>
+          <input
+            type="password"
+            name="password"
+            id="register-password"
+            placeholder="********"
+            required
+          />
+        </div>
+        <input type="submit" value="Register" />
+      </form>
+    </div>
+    <script src="login.js"></script>
+  </body>
+</html>
