@@ -1,6 +1,22 @@
 console.clear();
-//  V V V V Check Check V V V V    WHY WHEN RELOADING IT CAUSE AN ERROR + remove will delete cart
+//  V V V V Check Check V V V V    WHY WHEN RELOADING IT CAUSE AN ERROR
+const permissionSet = new Set([
+  "ADD_TO_CART",
+  "REMOVE_FROM_CART",
+  "EMPTY_CART",
+  "DISCOUNT_15",
+]);
+
 let productItem = [];
+
+//setProducts(); here because update is using productItem (not the best)
+setProducts();
+if (!isCartEmpty()) {
+  updateAvailableStock();
+  emptyCart();
+}
+showProductGallery(productItem);
+showCartTable();
 
 function setProducts() {
   if (localStorage.getItem("shop")) {
@@ -33,19 +49,12 @@ function setProducts() {
     localStorage.setItem("shop", shopStockJSON);
   }
 }
-//setProducts(); here because update is using productItem (not the best)
-if (!isCartEmpty()) {
-  updateAvailableStock();
-  emptyCart();
-}
-setProducts();
-showProductGallery(productItem);
-showCartTable();
 
 function updateAvailableStock() {
   let shopArray = JSON.parse(localStorage.getItem("shop"));
   if (!isCartEmpty()) {
     cartArray = JSON.parse(sessionStorage.getItem("shopping-cart"));
+    console.log("inside");
 
     // console.log(cartArray); //return array of objects
     for (let i = 0; i < cartArray.length; i++) {
@@ -147,19 +156,22 @@ function removeFromCart(element) {
     } else {
       alert("This item is not in your cart");
     }
-    if (!isCartEmpty()) {
-      sessionStorage.removeItem("shopping-cart");
-    } else {
-      const cartJSON = JSON.stringify(cartArray);
-      sessionStorage.setItem("shopping-cart", cartJSON);
-    }
   }
+  if (!isCartEmpty()) {
+    sessionStorage.removeItem("shopping-cart");
+  }
+
+  const cartJSON = JSON.stringify(cartArray);
+  sessionStorage.setItem("shopping-cart", cartJSON);
   showCartTable();
 }
 
 function isCartEmpty() {
   const cart = JSON.parse(sessionStorage.getItem("shopping-cart"));
-  if (!cart || cart.length == 0 || cart == "[]") {
+  console.log("cart = " + cart);
+  if (cart && cart.length == 0) {
+    return true;
+  } else if (cart == null || cart == undefined) {
     return true;
   }
   return false;
@@ -263,10 +275,3 @@ function showProductGallery(product) {
 
   document.querySelector("#product-item-container").innerHTML = productHTML;
 }
-
-const permissionSet = new Set([
-  "ADD_TO_CART",
-  "REMOVE_FROM_CART",
-  "EMPTY_CART",
-  "DISCOUNT_15",
-]);
