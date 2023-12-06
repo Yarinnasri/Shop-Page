@@ -20,6 +20,7 @@ let productItem = [];
 //add payedCart to the code, and check if it work in git, window.post message
 setProducts();
 if (payedCart) {
+  console.log(payedCart);
   updateAvailableStock();
   emptyCart();
 }
@@ -61,7 +62,9 @@ function setProducts() {
 function updateAvailableStock() {
   let shopArray = JSON.parse(localStorage.getItem("shop"));
   if (!isCartEmpty()) {
-    cartArray = JSON.parse(sessionStorage.getItem("shopping-cart"));
+    console.log("payedCart" + payedCart);
+    console.log("session" + shoppingCart);
+    cartArray = JSON.parse(payedCart);
     console.log("inside");
 
     // console.log(cartArray); //return array of objects
