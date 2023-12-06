@@ -20,7 +20,6 @@ let productItem = [];
 //add payedCart to the code, and check if it work in git, window.post message
 setProducts();
 if (payedCart) {
-  console.log(payedCart);
   updateAvailableStock();
   emptyCart();
 }
