@@ -62,9 +62,7 @@ function setProducts() {
 function updateAvailableStock() {
   let shopArray = JSON.parse(localStorage.getItem("shop"));
   if (!isCartEmpty()) {
-    console.log("payedCart" + payedCart);
-    console.log("session" + shoppingCart);
-    cartArray = JSON.parse(payedCart);
+    cartArray = JSON.parse(sessionStorage.getItem("shopping-cart"));
     console.log("inside");
 
     // console.log(cartArray); //return array of objects
