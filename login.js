@@ -4,7 +4,6 @@ const newUserBtn = document
 const loginForm = document.getElementById("form-login");
 const registerForm = document.getElementById("form-register");
 const h1Html = document.getElementsByTagName("h1")[0];
-const users = getUsers();
 
 function registerPage() {
   loginForm.style.display = "none";
@@ -27,8 +26,9 @@ function registerPage() {
       validate1(emailInput.value, passwordInput.value) &&
       validate2(fullnameInput.value, usernameInput.value)
     ) {
-      console.log("new user has been created");
+      alert("new user has been created");
       createUser();
+      users = getUsers();
       loginForm.style.display = "flex";
       registerForm.style.display = "none";
       h1Html.innerText = "Login";
@@ -50,7 +50,8 @@ function registerPage() {
       `${emailInput.value}`,
       `${fullnameInput.value}`,
       `${passwordInput.value}`,
-      null
+      null,
+      ["DISCOUNT_20_OFF"]
     );
 
     const existingUsers = JSON.parse(sessionStorage.getItem("users")) || [];
@@ -59,33 +60,41 @@ function registerPage() {
   }
 }
 
-function User(username, email, fullname, password, lastLoginDate) {
+function User(username, email, fullname, password, lastLoginDate, permissions) {
   this.username = username;
   this.email = email;
   this.fullname = fullname;
   this.password = password;
   this.lastLoginDate = lastLoginDate;
+  this.permissions = permissions;
 }
+
+let users = getUsers();
 
 function getUsers() {
   if (!!sessionStorage.getItem("users")) {
-    const usersArray = JSON.parse(sessionStorage.getItem("users"));
+    const users = JSON.parse(sessionStorage.getItem("users"));
 
-    return new Map(usersArray);
+    users.forEach(
+      (user) => (user[1].permissions = new Set(user[1].permissions))
+    );
+    return new Map(users);
   } else {
     const user1 = new User(
-      "Guest1",
-      "guest111@gmail.com",
-      "Guest Guest",
-      "G123456",
-      null
-    );
-    const user2 = new User(
       "Admin1",
       "admin123@gmail.com",
       "Admin Admin",
       "A123456",
-      null
+      null,
+      ["CHANGE_STOCK", "DISCOUNT_20"]
+    );
+    const user2 = new User(
+      "Guest1",
+      "guest123@gmail.com",
+      "Guest Guest",
+      "G123456",
+      null,
+      ["DISCOUNT_20"]
     );
 
     const users = [
@@ -94,6 +103,9 @@ function getUsers() {
     ];
 
     sessionStorage.setItem("users", JSON.stringify(users));
+    users.forEach(
+      (user) => (user[1].permissions = new Set(user[1].permissions))
+    );
     return new Map(users);
   }
 }

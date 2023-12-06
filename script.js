@@ -1,10 +1,4 @@
 console.clear();
-const permissionSet = new Set([
-  "ADD_TO_CART",
-  "REMOVE_FROM_CART",
-  "EMPTY_CART",
-  "DISCOUNT_15",
-]);
 
 let productItem = [];
 let payedCart = JSON.parse(sessionStorage.getItem("payedCart"));
@@ -28,11 +22,11 @@ function setProducts() {
   } else {
     console.log("new shop");
     productItem = [
-      new Product(1, "FinePix Pro2 3D Camera", "1800.00", 10, "camera.jpg"),
+      new Product(1, "FinePix Pro2 3D Camera", "250.00", 10, "camera.jpg"),
       new Product(
         2,
         "EXP Portable HD",
-        "800.00",
+        "100.00",
         10,
         "external-hard-drive.jpg"
       ),
@@ -144,7 +138,6 @@ function removeFromCart(element) {
 
 function isCartEmpty() {
   const cart = JSON.parse(sessionStorage.getItem("shopping-cart"));
-  console.log("cart = " + cart);
   if (cart && cart.length == 0) {
     return true;
   } else if (cart == null || cart == undefined) {
