@@ -7,12 +7,13 @@ const permissionSet = new Set([
   "DISCOUNT_15",
 ]);
 
-let payedCart;
-window.addEventListener("message", (event) => {
-  if (event.origin === "https://yarinnasri.github.io/Payment-Page/") {
-    payedCart = JSON.parse(event.data);
-  }
-});
+let payedCart = JSON.parse(sessionStorage.getItem("payedCart"));
+console.log("payedCart = " + payedCart);
+// window.addEventListener("message", (event) => {
+//   if (event.origin === "https://yarinnasri.github.io/Payment-Page/") {
+//     payedCart = JSON.parse(event.data);
+//   }
+// });
 
 let productItem = [];
 
@@ -25,6 +26,7 @@ if (payedCart) {
 }
 showProductGallery(productItem);
 showCartTable();
+payedCart = false;
 
 function setProducts() {
   if (localStorage.getItem("shop")) {
@@ -196,10 +198,10 @@ function emptyCart() {
 
 function checkout() {
   if (!isCartEmpty()) {
-    window.postMessage(
-      sessionStorage.getItem("shopping-cart"),
-      "https://yarinnasri.github.io/Payment-Page/"
-    );
+    // window.postMessage(
+    //   sessionStorage.getItem("shopping-cart"),
+    //   "https://yarinnasri.github.io/Payment-Page/"
+    // );
 
     window.location.href = "https://yarinnasri.github.io/Payment-Page/";
   } else {
