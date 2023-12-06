@@ -1,5 +1,4 @@
 console.clear();
-//  V V V V Check Check V V V V    WHY WHEN RELOADING IT CAUSE AN ERROR
 const permissionSet = new Set([
   "ADD_TO_CART",
   "REMOVE_FROM_CART",
@@ -7,26 +6,17 @@ const permissionSet = new Set([
   "DISCOUNT_15",
 ]);
 
-let payedCart = JSON.parse(sessionStorage.getItem("payedCart"));
-console.log("payedCart = " + payedCart);
-// window.addEventListener("message", (event) => {
-//   if (event.origin === "https://yarinnasri.github.io/Payment-Page/") {
-//     payedCart = JSON.parse(event.data);
-//   }
-// });
-
 let productItem = [];
+let payedCart = JSON.parse(sessionStorage.getItem("payedCart"));
 
-//setProducts(); here because update is using productItem (not the best)
-//add payedCart to the code, and check if it work in git, window.post message
 setProducts();
-if (payedCart) {
+if (payedCart && !isCartEmpty()) {
   updateAvailableStock();
   emptyCart();
 }
 showProductGallery(productItem);
 showCartTable();
-payedCart = false;
+sessionStorage.setItem("payedCart", JSON.stringify(false));
 
 function setProducts() {
   if (localStorage.getItem("shop")) {
@@ -61,36 +51,15 @@ function setProducts() {
 }
 
 function updateAvailableStock() {
-  let shopArray = JSON.parse(localStorage.getItem("shop"));
   if (!isCartEmpty()) {
     cartArray = JSON.parse(sessionStorage.getItem("shopping-cart"));
-    console.log("inside");
 
-    // console.log(cartArray); //return array of objects
     for (let i = 0; i < cartArray.length; i++) {
-      // console.log("in loop"); //Xxxxxxxxxxxxx
       const productIndex = Number(cartArray[i].id);
-      // console.log(productIndex, typeof productIndex); //Xxxxxxxxxxxxx
-      // console.log(`cart item #${i + 1} = ${JSON.stringify(cartArray[i])}`);
-      // console.log(JSON.stringify(productItem)); // XXXXXX
-      // console.log(
-      //   `productItem #${i + 1} = ${JSON.stringify(
-      //     productItem[productIndex - 1]
-      //   )}`
-      // );
-
-      // new code
-
-      // shopArray[productIndex - 1].stock = cartArray[i].stock;
-      // const shopStockJSON = JSON.stringify(productItem);
-      // localStorage.setItem("shop", shopStockJSON);
-
-      // old code
       productItem[productIndex - 1].stock = cartArray[i].stock;
       const shopStockJSON = JSON.stringify(productItem);
       localStorage.setItem("shop", shopStockJSON);
     }
-    console.log("end loop"); //Xxxxxxxxxxxxxxxx
   }
 }
 
@@ -123,10 +92,7 @@ function addToCart(element) {
   if (!isCartEmpty()) {
     cartArray = JSON.parse(sessionStorage.getItem("shopping-cart"));
     const itemIndex = cartArray.findIndex((item) => item.id === id);
-    // console.log(`itemIndex =  ${itemIndex}`);
     if (itemIndex !== -1) {
-      // console.log(stock);
-      // console.log(cartArray[itemIndex].stock);
       if (stock >= Number(cartArray[itemIndex].quantity) + Number(quantity)) {
         cartArray[itemIndex].quantity =
           Number(cartArray[itemIndex].quantity) + Number(quantity);
@@ -198,11 +164,6 @@ function emptyCart() {
 
 function checkout() {
   if (!isCartEmpty()) {
-    // window.postMessage(
-    //   sessionStorage.getItem("shopping-cart"),
-    //   "https://yarinnasri.github.io/Payment-Page/"
-    // );
-
     window.location.href = "https://yarinnasri.github.io/Payment-Page/";
   } else {
     alert("Cannot proceed if the cart is empty!");
