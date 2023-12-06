@@ -7,11 +7,19 @@ const permissionSet = new Set([
   "DISCOUNT_15",
 ]);
 
+let payedCart;
+window.addEventListener("message", (event) => {
+  if (event.origin === "https://yarinnasri.github.io/Payment-Page/") {
+    payedCart = JSON.parse(event.data);
+  }
+});
+
 let productItem = [];
 
 //setProducts(); here because update is using productItem (not the best)
+//add payedCart to the code, and check if it work in git, window.post message
 setProducts();
-if (!isCartEmpty()) {
+if (payedCart) {
   updateAvailableStock();
   emptyCart();
 }
@@ -188,6 +196,11 @@ function emptyCart() {
 
 function checkout() {
   if (!isCartEmpty()) {
+    window.postMessage(
+      sessionStorage.getItem("shopping-cart"),
+      "https://yarinnasri.github.io/Payment-Page/"
+    );
+
     window.location.href = "https://yarinnasri.github.io/Payment-Page/";
   } else {
     alert("Cannot proceed if the cart is empty!");
