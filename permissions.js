@@ -6,5 +6,10 @@ const loggedInUser = usersFromSession.find(
   (user) => user[0] === loggedInUserEmail
 )[1];
 
-const userPermissions = new Set(loggedInUser.permissions);
+let userPermissions = new Set();
+
+if (loggedInUser && loggedInUser[1] && loggedInUser[1].permissions) {
+  userPermissions = new Set(loggedInUser[1].permissions);
+}
+
 console.log(userPermissions);
