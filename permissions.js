@@ -12,4 +12,7 @@ if (loggedInUser && loggedInUser[1] && loggedInUser[1].permissions) {
   userPermissions = new Set(loggedInUser[1].permissions);
 }
 
+console.log("loggedInUser " + loggedInUser);
+console.log("loggedInUser[1] " + loggedInUser[1]);
+console.log("loggedInUser[1].permissions " + loggedInUser);
 console.log(userPermissions);
