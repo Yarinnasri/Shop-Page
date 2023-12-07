@@ -86,7 +86,7 @@ function getUsers() {
       "Admin Admin",
       "A123456",
       null,
-      ["CHANGE_STOCK", "DISCOUNT_20"]
+      ["CHANGE_STOCK", "DISCOUNT_20_OFF"]
     );
     const user2 = new User(
       "Guest1",
@@ -94,7 +94,7 @@ function getUsers() {
       "Guest Guest",
       "G123456",
       null,
-      ["DISCOUNT_20"]
+      ["DISCOUNT_20_OFF"]
     );
 
     const users = [
